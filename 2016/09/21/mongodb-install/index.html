@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="mongodb," />
 
 
 
@@ -84,22 +84,31 @@
 
 
 
-<meta name="description" content="每次安装nodejs都要上网搜, 我决定还是记下来吧。
-在Ubuntu上安装服务器的系统是Ubuntu 14.04, 使用apt-get命令安装, 命令如下:
-12sudo apt-get install nodejssudo apt-get install npm">
+<meta name="description" content="每次在服务器/本地上安装Mongodb, 都很纠结, 故而有了这本文章记录过程和遇到的问题。
+在Ubuntu上安装找了一圈才发现最准确的方法是在其官方文档里: Install MongoDB Community Edition on Ubuntu
+要注意的是:
+
+MongoDB只提供64位 LTS Ubuntu 发行版的安装包
+安装涉及到的命令要查看官方文档是否有更新">
 <meta property="og:type" content="article">
-<meta property="og:title" content="安装Nodejs">
-<meta property="og:url" content="http://chao-yang.github.io/2016/09/21/node-install/index.html">
+<meta property="og:title" content="mongodb install">
+<meta property="og:url" content="http://chao-yang.github.io/2016/09/21/mongodb-install/index.html">
 <meta property="og:site_name" content="Chaos">
-<meta property="og:description" content="每次安装nodejs都要上网搜, 我决定还是记下来吧。
-在Ubuntu上安装服务器的系统是Ubuntu 14.04, 使用apt-get命令安装, 命令如下:
-12sudo apt-get install nodejssudo apt-get install npm">
-<meta property="og:updated_time" content="2016-09-21T04:13:14.000Z">
+<meta property="og:description" content="每次在服务器/本地上安装Mongodb, 都很纠结, 故而有了这本文章记录过程和遇到的问题。
+在Ubuntu上安装找了一圈才发现最准确的方法是在其官方文档里: Install MongoDB Community Edition on Ubuntu
+要注意的是:
+
+MongoDB只提供64位 LTS Ubuntu 发行版的安装包
+安装涉及到的命令要查看官方文档是否有更新">
+<meta property="og:updated_time" content="2016-09-21T04:48:03.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="安装Nodejs">
-<meta name="twitter:description" content="每次安装nodejs都要上网搜, 我决定还是记下来吧。
-在Ubuntu上安装服务器的系统是Ubuntu 14.04, 使用apt-get命令安装, 命令如下:
-12sudo apt-get install nodejssudo apt-get install npm">
+<meta name="twitter:title" content="mongodb install">
+<meta name="twitter:description" content="每次在服务器/本地上安装Mongodb, 都很纠结, 故而有了这本文章记录过程和遇到的问题。
+在Ubuntu上安装找了一圈才发现最准确的方法是在其官方文档里: Install MongoDB Community Edition on Ubuntu
+要注意的是:
+
+MongoDB只提供64位 LTS Ubuntu 发行版的安装包
+安装涉及到的命令要查看官方文档是否有更新">
 
 
 
@@ -117,7 +126,7 @@
   };
 </script>
 
-  <title> 安装Nodejs | Chaos </title>
+  <title> mongodb install | Chaos </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -247,7 +256,7 @@
             
             
               
-                安装Nodejs
+                mongodb install
               
             
           </h1>
@@ -259,7 +268,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-21T09:54:30+08:00" content="2016-09-21">
+            <time itemprop="dateCreated" datetime="2016-09-21T12:03:57+08:00" content="2016-09-21">
               2016-09-21
             </time>
           </span>
@@ -273,8 +282,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Nodejs/" itemprop="url" rel="index">
-                    <span itemprop="name">Nodejs</span>
+                  <a href="/categories/Mongodb/" itemprop="url" rel="index">
+                    <span itemprop="name">Mongodb</span>
                   </a>
                 </span>
 
@@ -289,8 +298,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/09/21/node-install/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/21/node-install/" itemprop="commentsCount"></span>
+                <a href="/2016/09/21/mongodb-install/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/21/mongodb-install/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -320,17 +329,55 @@
       
 
       
-        <p>每次安装nodejs都要上网搜, 我决定还是记下来吧。</p>
-<h2 id="在Ubuntu上安装"><a href="#在Ubuntu上安装" class="headerlink" title="在Ubuntu上安装"></a>在Ubuntu上安装</h2><p>服务器的系统是Ubuntu 14.04, 使用apt-get命令安装, 命令如下:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install nodejs</span><br><span class="line">sudo apt-get install npm</span><br></pre></td></tr></table></figure>
+        <p>每次在服务器/本地上安装Mongodb, 都很纠结, 故而有了这本文章记录过程和遇到的问题。</p>
+<h2 id="在Ubuntu上安装"><a href="#在Ubuntu上安装" class="headerlink" title="在Ubuntu上安装"></a>在Ubuntu上安装</h2><p>找了一圈才发现最准确的方法是在其官方文档里: <a href="https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/" target="_blank" rel="external">Install MongoDB Community Edition on Ubuntu</a></p>
+<p>要注意的是:</p>
+<ul>
+<li>MongoDB只提供64位 LTS Ubuntu 发行版的安装包</li>
+<li>安装涉及到的命令要查看官方文档是否有更新</li>
+</ul>
 <a id="more"></a>
-<h3 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h3><ul>
-<li>Q: 运行node服务时, 报错提示: This failure might be due to the use of legacy binary “node”<br>  A: 如果在Ubuntu上用apt-get安装nodejs就会出现这个问题, 只需要建立一个symbolink 把 node 和 nodejs 连接在一起, 在执行 node 时实际是在执行 nodejs 就可以了  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ln -s /usr/bin/nodejs /usr/bin/node`</span><br></pre></td></tr></table></figure>
+<p>我的系统是Ubuntu 14.04, 安装步骤如下:</p>
+<ul>
+<li><p>引入 public key</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv EA312927</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建 MongoDB list file (仅针对Ubuntu 14.04, 其他版本的Ubuntu略有不同)</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;deb http://repo.mongodb.org/apt/ubuntu trusty/mongodb-org/3.2 multiverse&quot; | sudo tee /etc/apt/sources.list.d/mongodb-org-3.2.list</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>重新加载本地 package database</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装最新的稳定版本</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install -y mongodb-org</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
+<h2 id="运行-MongoDB"><a href="#运行-MongoDB" class="headerlink" title="运行 MongoDB"></a>运行 MongoDB</h2><ul>
+<li><p>Start MongoDB</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo service mongod start</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Verify that MongoDB has started successfully<br>  Verify that the mongod process has started successfully by checking the contents of the log file at /var/log/mongodb/mongod.log for a line reading</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[initandlisten] waiting for connections on port &lt;port&gt;</span><br></pre></td></tr></table></figure>
+<p>  where <port> is the port configured in /etc/mongod.conf, 27017 by default.</port></p>
+</li>
+<li><p>Stop MongoDB</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo service mongod stop</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Restart MongoDB</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo service mongod restart</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h2><ol>
+<li><p>运行 <code>mongo</code> 时, 报错:</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Failed global initialization: BadValue Invalid or no user locale set. Please ensure LANG and/or LC_* environment variables are set correctly</span><br></pre></td></tr></table></figure>
+<p> 解决方案: 参考 <a href="http://stackoverflow.com/questions/27375137/failed-global-initialization-badvalue-invalid-or-no-user-locale-set-please-ens" target="_blank" rel="external">stackoverflow</a>, 执行下面的命令即可:</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export LC_ALL=C</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
 <h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>&gt;</p>
 <ol>
-<li><a href="https://github.com/websockets/ws/issues/458" target="_blank" rel="external">https://github.com/websockets/ws/issues/458</a></li>
+<li><a href="https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/" target="_blank" rel="external">Install MongoDB Community Edition on Ubuntu</a></li>
+<li><a href="http://blog.csdn.net/kk185800961/article/details/45427367" target="_blank" rel="external">Red Hat Enterprise 6.4 x64 安装MongDB 3.0及配置</a></li>
 </ol>
 
       
@@ -351,22 +398,24 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/mongodb/" rel="tag">#mongodb</a>
+          
+        </div>
+      
 
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/08/15/how-to-continue-linux-service-after-disconnecting-ssh/" rel="next" title="如何在关闭SSH后继续在后台运行程序">
-                <i class="fa fa-chevron-left"></i> 如何在关闭SSH后继续在后台运行程序
+              <a href="/2016/09/21/node-install/" rel="next" title="安装Nodejs">
+                <i class="fa fa-chevron-left"></i> 安装Nodejs
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/09/21/mongodb-install/" rel="prev" title="mongodb install">
-                mongodb install <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -392,8 +441,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/09/21/node-install/"
-           data-title="安装Nodejs" data-url="http://chao-yang.github.io/2016/09/21/node-install/">
+      <div class="ds-thread" data-thread-key="2016/09/21/mongodb-install/"
+           data-title="mongodb install" data-url="http://chao-yang.github.io/2016/09/21/mongodb-install/">
       </div>
     
   </div>
@@ -484,7 +533,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#在Ubuntu上安装"><span class="nav-number">1.</span> <span class="nav-text">在Ubuntu上安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#遇到的问题"><span class="nav-number">1.1.</span> <span class="nav-text">遇到的问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-number">2.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#在Ubuntu上安装"><span class="nav-number">1.</span> <span class="nav-text">在Ubuntu上安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运行-MongoDB"><span class="nav-number">2.</span> <span class="nav-text">运行 MongoDB</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#遇到的问题"><span class="nav-number">3.</span> <span class="nav-text">遇到的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-number">4.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
             
           </div>
         </section>

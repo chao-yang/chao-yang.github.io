@@ -243,6 +243,137 @@
             
               
                 
+                <a class="post-title-link" href="/2016/09/21/mongodb-install/" itemprop="url">
+                  mongodb install
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-21T12:03:57+08:00" content="2016-09-21">
+              2016-09-21
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Mongodb/" itemprop="url" rel="index">
+                    <span itemprop="name">Mongodb</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/21/mongodb-install/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/21/mongodb-install/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>每次在服务器/本地上安装Mongodb, 都很纠结, 故而有了这本文章记录过程和遇到的问题。</p>
+<h2 id="在Ubuntu上安装"><a href="#在Ubuntu上安装" class="headerlink" title="在Ubuntu上安装"></a>在Ubuntu上安装</h2><p>找了一圈才发现最准确的方法是在其官方文档里: <a href="https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/">Install MongoDB Community Edition on Ubuntu</a></p>
+<p>要注意的是:</p>
+<ul>
+<li>MongoDB只提供64位 LTS Ubuntu 发行版的安装包</li>
+<li>安装涉及到的命令要查看官方文档是否有更新</li>
+</ul>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/09/21/mongodb-install/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/09/21/node-install/" itemprop="url">
                   安装Nodejs
                 </a>
@@ -316,8 +447,7 @@
       
         
           <p>每次安装nodejs都要上网搜, 我决定还是记下来吧。</p>
-<p>##在Ubuntu上安装</p>
-<p>服务器的系统是Ubuntu 14.04, 使用apt-get命令安装, 命令如下:</p>
+<h2 id="在Ubuntu上安装"><a href="#在Ubuntu上安装" class="headerlink" title="在Ubuntu上安装"></a>在Ubuntu上安装</h2><p>服务器的系统是Ubuntu 14.04, 使用apt-get命令安装, 命令如下:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install nodejs</span><br><span class="line">sudo apt-get install npm</span><br></pre></td></tr></table></figure>
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/09/21/node-install/#more" rel="contents">
@@ -443,7 +573,7 @@
 
       
         
-          <h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>当SSH远程连接到服务器上，然后运行一个服务，然后把终端开闭（切断SSH连接）之后，发现该服务中断，导致系统不可用。</p>
+          <h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>当SSH远程连接到服务器上，然后运行一个服务，再把终端开闭（切断SSH连接）之后，发现该服务中断，导致系统不可用。</p>
 <h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><p>使用 <code>nohup</code> 命令让程序在关闭窗口（切换SSH连接）的时候程序还能继续在后台运行。</p>
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/08/15/how-to-continue-linux-service-after-disconnecting-ssh/#more" rel="contents">
@@ -896,7 +1026,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">5</span>
+              <span class="site-state-item-count">6</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -904,7 +1034,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -913,7 +1043,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">3</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
