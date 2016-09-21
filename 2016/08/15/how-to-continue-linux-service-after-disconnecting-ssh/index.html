@@ -92,7 +92,7 @@
 <meta property="og:site_name" content="Chaos">
 <meta property="og:description" content="问题描述当SSH远程连接到服务器上，然后运行一个服务，然后把终端开闭（切断SSH连接）之后，发现该服务中断，导致系统不可用。
 解决方法使用 nohup 命令让程序在关闭窗口（切换SSH连接）的时候程序还能继续在后台运行。">
-<meta property="og:updated_time" content="2016-09-21T03:18:38.000Z">
+<meta property="og:updated_time" content="2016-09-21T03:22:09.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="如何在关闭SSH后继续在后台运行程序">
 <meta name="twitter:description" content="问题描述当SSH远程连接到服务器上，然后运行一个服务，然后把终端开闭（切断SSH连接）之后，发现该服务中断，导致系统不可用。
@@ -321,17 +321,12 @@
 <h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><p>使用 <code>nohup</code> 命令让程序在关闭窗口（切换SSH连接）的时候程序还能继续在后台运行。</p>
 <a id="more"></a>
 <h3 id="nohup命令说明"><a href="#nohup命令说明" class="headerlink" title="nohup命令说明"></a>nohup命令说明</h3><ul>
-<li><p>用途：不挂断地运行命令。</p>
-</li>
-<li><p>语法：nohup Command [ Arg … ] [　&amp; ]</p>
-</li>
-<li><p>描述：nohup 命令运行由 Command 参数和任何相关的 Arg 参数指定的命令，忽略所有挂断（SIGHUP）信号。在注销后使用 nohup 命令运行后台中的程序。要运行后台中的 nohup 命令，添加 &amp; （ 表示“and”的符号）到命令的尾部。</p>
-</li>
+<li>用途：不挂断地运行命令。</li>
+<li>语法：nohup Command [ Arg … ] [　&amp; ]</li>
+<li>描述：nohup 命令运行由 Command 参数和任何相关的 Arg 参数指定的命令，忽略所有挂断（SIGHUP）信号。在注销后使用 nohup 命令运行后台中的程序。要运行后台中的 nohup 命令，添加 &amp; （ 表示“and”的符号）到命令的尾部。</li>
 </ul>
-<p>　　</p>
 <p>无论是否将 nohup 命令的输出重定向到终端，输出都将附加到当前目录的 nohup.out 文件中。如果当前目录的 nohup.out 文件不可写，输出重定向到 $HOME/nohup.out 文件中。如果没有文件能创建或打开以用于追加，那么 Command 参数指定的命令不可调用。如果标准错误是一个终端，那么把指定的命令写给标准错误的所有输出作为标准输出重定向到相同的文件描述符。</p>
-<h2 id="深入探讨"><a href="#深入探讨" class="headerlink" title="深入探讨"></a>深入探讨</h2><h3 id="为什么ssh一关闭，程序就不再运行了？"><a href="#为什么ssh一关闭，程序就不再运行了？" class="headerlink" title="为什么ssh一关闭，程序就不再运行了？"></a>为什么ssh一关闭，程序就不再运行了？</h3><p>元凶：SIGHUP 信号。让我们来看看为什么关掉窗口/断开连接会使得正在运行的程序死掉。</p>
-<p>在Linux/Unix中，有这样几个概念：</p>
+<h2 id="深入探讨"><a href="#深入探讨" class="headerlink" title="深入探讨"></a>深入探讨</h2><h3 id="为什么ssh一关闭，程序就不再运行了？"><a href="#为什么ssh一关闭，程序就不再运行了？" class="headerlink" title="为什么ssh一关闭，程序就不再运行了？"></a>为什么ssh一关闭，程序就不再运行了？</h3><p>元凶：SIGHUP 信号。让我们来看看为什么关掉窗口/断开连接会使得正在运行的程序死掉。<br>在Linux/Unix中，有这样几个概念：</p>
 <ul>
 <li>进程组（process group）：一个或多个进程的集合，每一个进程组有唯一一个进程组ID，即进程组长进程的ID。</li>
 <li>会话期（session）：一个或多个进程组的集合，有唯一一个会话期首进程（session leader）。会话期ID为首进程的ID。</li>
