@@ -315,23 +315,15 @@
 
       
         
-          
-            <p>每次安装nodejs都要上网搜, 我决定还是记下来吧。</p>
+          <p>每次安装nodejs都要上网搜, 我决定还是记下来吧。</p>
 <p>##在Ubuntu上安装</p>
 <p>服务器的系统是Ubuntu 14.04, 使用apt-get命令安装, 命令如下:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install nodejs</span><br><span class="line">sudo apt-get install npm</span><br></pre></td></tr></table></figure>
-<h3 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h3><ul>
-<li><p>Q: 运行node服务时, 报错提示: This failure might be due to the use of legacy binary “node”</p>
-<p>  A: 如果在Ubuntu上用apt-get安装nodejs就会出现这个问题, 只需要建立一个symbolink 把 node 和 nodejs 连接在一起, 在执行 node 时实际是在执行 nodejs 就可以了</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ln -s /usr/bin/nodejs /usr/bin/node`</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>&gt;</p>
-<ol>
-<li><a href="https://github.com/websockets/ws/issues/458" target="_blank" rel="external">https://github.com/websockets/ws/issues/458</a></li>
-</ol>
-
-          
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/09/21/node-install/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -451,56 +443,13 @@
 
       
         
-          
-            <h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>当SSH远程连接到服务器上，然后运行一个服务，然后把终端开闭（切断SSH连接）之后，发现该服务中断，导致系统不可用。</p>
+          <h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>当SSH远程连接到服务器上，然后运行一个服务，然后把终端开闭（切断SSH连接）之后，发现该服务中断，导致系统不可用。</p>
 <h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><p>使用 <code>nohup</code> 命令让程序在关闭窗口（切换SSH连接）的时候程序还能继续在后台运行。</p>
-<h3 id="nohup命令说明"><a href="#nohup命令说明" class="headerlink" title="nohup命令说明"></a>nohup命令说明</h3><ul>
-<li><p>用途：不挂断地运行命令。</p>
-</li>
-<li><p>语法：nohup Command [ Arg … ] [　&amp; ]</p>
-</li>
-<li><p>描述：nohup 命令运行由 Command 参数和任何相关的 Arg 参数指定的命令，忽略所有挂断（SIGHUP）信号。在注销后使用 nohup 命令运行后台中的程序。要运行后台中的 nohup 命令，添加 &amp; （ 表示“and”的符号）到命令的尾部。</p>
-</li>
-</ul>
-<p>　　</p>
-<p>无论是否将 nohup 命令的输出重定向到终端，输出都将附加到当前目录的 nohup.out 文件中。如果当前目录的 nohup.out 文件不可写，输出重定向到 $HOME/nohup.out 文件中。如果没有文件能创建或打开以用于追加，那么 Command 参数指定的命令不可调用。如果标准错误是一个终端，那么把指定的命令写给标准错误的所有输出作为标准输出重定向到相同的文件描述符。</p>
-<h2 id="深入探讨"><a href="#深入探讨" class="headerlink" title="深入探讨"></a>深入探讨</h2><h3 id="为什么ssh一关闭，程序就不再运行了？"><a href="#为什么ssh一关闭，程序就不再运行了？" class="headerlink" title="为什么ssh一关闭，程序就不再运行了？"></a>为什么ssh一关闭，程序就不再运行了？</h3><p>元凶：SIGHUP 信号。让我们来看看为什么关掉窗口/断开连接会使得正在运行的程序死掉。</p>
-<p>在Linux/Unix中，有这样几个概念：</p>
-<ul>
-<li>进程组（process group）：一个或多个进程的集合，每一个进程组有唯一一个进程组ID，即进程组长进程的ID。</li>
-<li>会话期（session）：一个或多个进程组的集合，有唯一一个会话期首进程（session leader）。会话期ID为首进程的ID。</li>
-</ul>
-<p>会话期可以有一个单独的控制终端（controlling terminal）。与控制终端连接的会话期首进程叫做控制进程（controlling process）。当前与终端交互的进程称为前台进程组。其余进程组称为后台进程组。</p>
-<p>根据POSIX.1定义：挂断信号（SIGHUP）默认的动作是终止程序。</p>
-<p>当终端接口检测到网络连接断开，将挂断信号发送给控制进程（会话期首进程）。如果会话期首进程终止，则该信号发送到该会话期前台进程组。一个进程退出导致一个孤儿进程组中产生时，如果任意一个孤儿进程组进程处于STOP状态，发送SIGHUP和SIGCONT信号到该进程组中所有进程。（关于孤儿进程参照：<a href="http://blog.csdn.net/hmsiwtv/article/details/7901711" target="_blank" rel="external">http://blog.csdn.net/hmsiwtv/article/details/7901711</a> ）</p>
-<p><code>结论</code>：因此当网络断开或终端窗口关闭后，也就是SSH断开以后，控制进程收到SIGHUP信号退出，会导致该会话期内其他进程退出。<br>简而言之：就是ssh 打开以后，bash等都是他的子程序，一旦ssh关闭，系统将所有相关进程杀掉！！ 导致一旦ssh关闭，执行中的任务就取消了</p>
-<h4 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h4><p>我们来看一个例子。打开两个SSH终端窗口，在其中一个运行top命令。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@tivf09 root]# top</span><br></pre></td></tr></table></figure></p>
-<p>在另一个终端窗口，找到top的进程ID为5180，其父进程ID为5128，即登录shell。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@tivf09 root]# ps -ef|grep top</span><br><span class="line">root      5180  5128  0 01:03 pts/0    00:00:02 top</span><br><span class="line">root      5857  3672  0 01:12 pts/2    00:00:00 grep top</span><br></pre></td></tr></table></figure>
-<p>使用pstree命令可以更清楚地看到这个关系：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@tivf09 root]# pstree -H 5180|grep top</span><br><span class="line">|-sshd-+-sshd---bash---top</span><br></pre></td></tr></table></figure>
-<p>使用ps-xj命令可以看到，登录shell（PID 5128）和top在同一个会话期，shell为会话期首进程，所在进程组PGID为5128，top所在进程组PGID为5180，为前台进程组。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@tivf09 root]# ps -xj|grep 5128</span><br><span class="line">5126  5128  5128  5128 pts/0     5180 S        0   0:00 -bash</span><br><span class="line">5128  5180  5180  5128 pts/0     5180 S        0   0:50 top</span><br><span class="line">3672 18095 18094  3672 pts/2    18094 S        0   0:00 grep 5128</span><br></pre></td></tr></table></figure>
-<p>关闭第一个SSH窗口，在另一个窗口中可以看到top也被杀掉了。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@tivf09 root]# ps -ef|grep 5128</span><br><span class="line">root     18699  3672  0 04:35 pts/2    00:00:00 grep 5128</span><br></pre></td></tr></table></figure>
-<h3 id="使用后台运行命令-amp-能否将程序摆脱ssh进程组控制"><a href="#使用后台运行命令-amp-能否将程序摆脱ssh进程组控制" class="headerlink" title="使用后台运行命令&amp;, 能否将程序摆脱ssh进程组控制?"></a>使用后台运行命令&amp;, 能否将程序摆脱ssh进程组控制?</h3><p>也就是问如果ssh关闭，后台程序是否继续运行?</p>
-<p>我们做一个试验:  <code>find / -name ‘*http*’&amp;</code> , 利用ctrl+d 注销以后 再进入系统  会不会看见这个命令再运行?</p>
-<p>答案是: 命令被中止了! 因为他依然属于这个ssh进程组, 就算加了&amp;也无法摆脱！</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@CentOS5-4 ~]# pstree |grep find</span><br><span class="line">|-sshd-+-sshd---bash---find</span><br></pre></td></tr></table></figure>
-<h3 id="为什么守护程序就算用-ssh-打开，而关闭ssh也不会影响其运行"><a href="#为什么守护程序就算用-ssh-打开，而关闭ssh也不会影响其运行" class="headerlink" title="为什么守护程序就算用 ssh 打开，而关闭ssh也不会影响其运行?"></a>为什么守护程序就算用 ssh 打开，而关闭ssh也不会影响其运行?</h3><p>因为他们的程序特殊，比如 <code>httpd –k start</code> 运行这个以后，他不属于sshd这个进程组, 而是单独的进程组, 所以就算关闭了ssh，和他也没有任何关系！</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@CentOS5-4 ~]# pstree |grep http</span><br><span class="line">|-httpd</span><br><span class="line"></span><br><span class="line">[root@CentOS5-4 ~]# pstree |grep top</span><br><span class="line">|-sshd-+-sshd---bash---top</span><br></pre></td></tr></table></figure>
-<p><code>结论</code>：守护进程的启动命令本身就是特殊的，和一般命令不同的，比如mysqld_safe 这样的命令 一旦使用了  就是守护进程运行。所以想把一般程序改造为守护程序是不可能，</p>
-<h3 id="nohup能解决的问题"><a href="#nohup能解决的问题" class="headerlink" title="nohup能解决的问题"></a>nohup能解决的问题</h3><p>为了能够再注销以后依然能后台运行，那么我们就可以使用nohup这个命令。</p>
-<p>我们现在开始查找 <code>find / -name ‘*http*’&amp;</code>，并且希望在后台运行，那么就使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nohup：nohup find / -name &quot;*httpd*&quot;</span><br></pre></td></tr></table></figure></p>
-<p>此时默认地程序运行的输出信息放到当前文件夹的nohup.out 文件中去, 加不加&amp;并不会影响这个命令, 只是让程序前台或者后台运行而已。</p>
-<h4 id="延伸：Linux命令nohup-screen命令"><a href="#延伸：Linux命令nohup-screen命令" class="headerlink" title="延伸：Linux命令nohup+screen命令"></a>延伸：Linux命令nohup+screen命令</h4><p>如果想在关闭ssh连接后刚才启动的程序继续运行怎么办，可以使用nohup。但是如果要求第二天来的时候，一开ssh，还能查看到昨天运行的程序的状态，然后继续工作，这时nohup是不行了，需要使用 <code>screen</code> 来达到这个目的。</p>
-<p>虽然nohup很容易使用，但还是比较“简陋”的，对于简单的命令能够应付过来，对于复杂的需要人机交互的任务就麻烦了。其实我们可以使用一个更为强大的实用程序screen。</p>
-<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>&gt;</p>
-<ol>
-<li><a href="http://zjking.blog.51cto.com/976858/1117828" target="_blank" rel="external">解决Linux关闭终端（关闭SSH等）后运行的程序或者服务自动停止</a></li>
-</ol>
-
-          
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/08/15/how-to-continue-linux-service-after-disconnecting-ssh/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
