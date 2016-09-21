@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="nohup," />
 
 
 
@@ -84,15 +84,37 @@
 
 
 
-<meta name="description" content="Don&apos;t repeat yourself.">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Chaos">
-<meta property="og:url" content="http://chao-yang.github.io/index.html">
+<meta name="description" content="问题描述当SSH远程连接到服务器上，然后运行一个服务，然后把终端开闭（切断SSH连接）之后，发现该服务中断，导致系统不可用。
+解决方法使用 nohup 命令让程序在关闭窗口（切换SSH连接）的时候程序还能继续在后台运行。
+nohup命令说明
+用途：不挂断地运行命令。
+
+语法：nohup Command [ Arg … ] [　&amp;amp; ]
+
+描述：nohup 命令运行由 Command 参数和任">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何在关闭SSH后继续在后台运行程序">
+<meta property="og:url" content="http://chao-yang.github.io/2016/08/15/how-to-continue-linux-service-after-disconnecting-ssh/index.html">
 <meta property="og:site_name" content="Chaos">
-<meta property="og:description" content="Don&apos;t repeat yourself.">
+<meta property="og:description" content="问题描述当SSH远程连接到服务器上，然后运行一个服务，然后把终端开闭（切断SSH连接）之后，发现该服务中断，导致系统不可用。
+解决方法使用 nohup 命令让程序在关闭窗口（切换SSH连接）的时候程序还能继续在后台运行。
+nohup命令说明
+用途：不挂断地运行命令。
+
+语法：nohup Command [ Arg … ] [　&amp;amp; ]
+
+描述：nohup 命令运行由 Command 参数和任">
+<meta property="og:updated_time" content="2016-09-21T03:14:32.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Chaos">
-<meta name="twitter:description" content="Don&apos;t repeat yourself.">
+<meta name="twitter:title" content="如何在关闭SSH后继续在后台运行程序">
+<meta name="twitter:description" content="问题描述当SSH远程连接到服务器上，然后运行一个服务，然后把终端开闭（切断SSH连接）之后，发现该服务中断，导致系统不可用。
+解决方法使用 nohup 命令让程序在关闭窗口（切换SSH连接）的时候程序还能继续在后台运行。
+nohup命令说明
+用途：不挂断地运行命令。
+
+语法：nohup Command [ Arg … ] [　&amp;amp; ]
+
+描述：nohup 命令运行由 Command 参数和任">
 
 
 
@@ -110,7 +132,7 @@
   };
 </script>
 
-  <title> Chaos </title>
+  <title> 如何在关闭SSH后继续在后台运行程序 | Chaos </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -131,9 +153,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left 
-   page-home 
- ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -220,9 +240,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
   
@@ -242,146 +262,7 @@
             
             
               
-                
-                <a class="post-title-link" href="/2016/09/21/node-install/" itemprop="url">
-                  安装Nodejs
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-21T09:54:30+08:00" content="2016-09-21">
-              2016-09-21
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Nodejs/" itemprop="url" rel="index">
-                    <span itemprop="name">Nodejs</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/09/21/node-install/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/21/node-install/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>每次安装nodejs都要上网搜, 我决定还是记下来吧。</p>
-<p>##在Ubuntu上安装</p>
-<p>服务器的系统是Ubuntu 14.04, 使用apt-get命令安装, 命令如下:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install nodejs</span><br><span class="line">sudo apt-get install npm</span><br></pre></td></tr></table></figure>
-<h3 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h3><ul>
-<li><p>Q: 运行node服务时, 报错提示: This failure might be due to the use of legacy binary “node”</p>
-<p>  A: 如果在Ubuntu上用apt-get安装nodejs就会出现这个问题, 只需要建立一个symbolink 把 node 和 nodejs 连接在一起, 在执行 node 时实际是在执行 nodejs 就可以了</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ln -s /usr/bin/nodejs /usr/bin/node`</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>&gt;</p>
-<ol>
-<li><a href="https://github.com/websockets/ws/issues/458" target="_blank" rel="external">https://github.com/websockets/ws/issues/458</a></li>
-</ol>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/08/15/how-to-continue-linux-service-after-disconnecting-ssh/" itemprop="url">
-                  如何在关闭SSH后继续在后台运行程序
-                </a>
+                如何在关闭SSH后继续在后台运行程序
               
             
           </h1>
@@ -438,6 +319,10 @@
           
 
           
+            <span>&nbsp; | &nbsp;
+              <span id="busuanzi_value_page_pv" ></span>次阅读
+            </span>
+          
 
         </div>
       </header>
@@ -450,9 +335,7 @@
       
 
       
-        
-          
-            <h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>当SSH远程连接到服务器上，然后运行一个服务，然后把终端开闭（切断SSH连接）之后，发现该服务中断，导致系统不可用。</p>
+        <h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>当SSH远程连接到服务器上，然后运行一个服务，然后把终端开闭（切断SSH连接）之后，发现该服务中断，导致系统不可用。</p>
 <h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><p>使用 <code>nohup</code> 命令让程序在关闭窗口（切换SSH连接）的时候程序还能继续在后台运行。</p>
 <h3 id="nohup命令说明"><a href="#nohup命令说明" class="headerlink" title="nohup命令说明"></a>nohup命令说明</h3><ul>
 <li><p>用途：不挂断地运行命令。</p>
@@ -500,415 +383,62 @@
 <li><a href="http://zjking.blog.51cto.com/976858/1117828" target="_blank" rel="external">解决Linux关闭终端（关闭SSH等）后运行的程序或者服务自动停止</a></li>
 </ol>
 
-          
+      
+    </div>
+
+    <div>
+      
         
       
     </div>
 
     <div>
       
-    </div>
+        
 
-    <div>
       
     </div>
 
     <footer class="post-footer">
       
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/08/14/how-to-cancel-git-commit/" itemprop="url">
-                  如何在 Git 里撤销(几乎)任何操作
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-14T10:48:49+08:00" content="2016-08-14">
-              2016-08-14
-            </time>
-          </span>
-
+        <div class="post-tags">
           
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Git/" itemprop="url" rel="index">
-                    <span itemprop="name">Git</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
+            <a href="/tags/nohup/" rel="tag">#nohup</a>
           
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/08/14/how-to-cancel-git-commit/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/14/how-to-cancel-git-commit/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          <p>英文原文：<a href="https://github.com/blog/2019-how-to-undo-almost-anything-with-git">https://github.com/blog/2019-how-to-undo-almost-anything-with-git</a>， 中文翻译截取自 <a href="http://blog.jobbole.com/87700/">http://blog.jobbole.com/87700/</a></p>
-<p>任何版本控制系统的一个最有的用特性就是“撤销 (undo)”你的错误操作的能力。在 Git 里，“撤销” 蕴含了不少略有差别的功能。</p>
-<p>当你进行一次新的提交的时候，Git 会保存你代码库在那个特定时间点的快照；之后，你可以利用 Git 返回到你的项目的一个早期版本。</p>
-<p>在本篇博文里，我会讲解某些你需要“撤销”已做出的修改的常见场景，以及利用 Git 进行这些操作的最佳方法。</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/08/14/how-to-cancel-git-commit/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/08/14/how-to-cancel-git-commit/" rel="next" title="如何在 Git 里撤销(几乎)任何操作">
+                <i class="fa fa-chevron-left"></i> 如何在 Git 里撤销(几乎)任何操作
+              </a>
+            
           </div>
-        
-      
-    </div>
 
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
+          <div class="post-nav-prev post-nav-item">
             
+              <a href="/2016/09/21/node-install/" rel="prev" title="安装Nodejs">
+                安装Nodejs <i class="fa fa-chevron-right"></i>
+              </a>
             
-              
-                
-                <a class="post-title-link" href="/2016/08/10/the-skills-of-a-lifetime/" itemprop="url">
-                  有哪些十分钟就能学会，可以终生受用的技能？
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-10T20:32:55+08:00" content="2016-08-10">
-              2016-08-10
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Thoughts/" itemprop="url" rel="index">
-                    <span itemprop="name">Thoughts</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/08/10/the-skills-of-a-lifetime/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/10/the-skills-of-a-lifetime/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          <p>这篇回答在Quora获得一万多赞。一共24条，简译如下：</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/08/10/the-skills-of-a-lifetime/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
-    
-      
 
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/05/05/hexo-deploy/" itemprop="url">
-                  使用Hexo搭建博客
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-05-05T11:25:39+08:00" content="2016-05-05">
-              2016-05-05
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Hexo/" itemprop="url" rel="index">
-                    <span itemprop="name">Hexo</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/05/05/hexo-deploy/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/05/hexo-deploy/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>这两天在Github上搭建了博客，以后就可以安心写博客啦~~期间遇到了一些问题，记录在此。</p>
-<p>参考 <a href="https://github.com/zippera">zipperary</a> 的<a href="http://zipperary.com/2013/05/28/hexo-guide-2/">这篇文章</a>基本上就可以实现基于Github Page + Hexo 搭建博客。这里主要是补充下我在安装过程中遇到的问题。</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/05/05/hexo-deploy/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
+    <div class="post-spread">
       
     </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-  </section>
-
-  
+  </div>
 
 
           </div>
@@ -916,6 +446,14 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/08/15/how-to-continue-linux-service-after-disconnecting-ssh/"
+           data-title="如何在关闭SSH后继续在后台运行程序" data-url="http://chao-yang.github.io/2016/08/15/how-to-continue-linux-service-after-disconnecting-ssh/">
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -935,8 +473,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.jpg"
@@ -986,6 +533,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#问题描述"><span class="nav-number">1.</span> <span class="nav-text">问题描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决方法"><span class="nav-number">2.</span> <span class="nav-text">解决方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#nohup命令说明"><span class="nav-number">2.1.</span> <span class="nav-text">nohup命令说明</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#深入探讨"><span class="nav-number">3.</span> <span class="nav-text">深入探讨</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么ssh一关闭，程序就不再运行了？"><span class="nav-number">3.1.</span> <span class="nav-text">为什么ssh一关闭，程序就不再运行了？</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#例子"><span class="nav-number">3.1.1.</span> <span class="nav-text">例子</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用后台运行命令-amp-能否将程序摆脱ssh进程组控制"><span class="nav-number">3.2.</span> <span class="nav-text">使用后台运行命令&, 能否将程序摆脱ssh进程组控制?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么守护程序就算用-ssh-打开，而关闭ssh也不会影响其运行"><span class="nav-number">3.3.</span> <span class="nav-text">为什么守护程序就算用 ssh 打开，而关闭ssh也不会影响其运行?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nohup能解决的问题"><span class="nav-number">3.4.</span> <span class="nav-text">nohup能解决的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#延伸：Linux命令nohup-screen命令"><span class="nav-number">3.4.1.</span> <span class="nav-text">延伸：Linux命令nohup+screen命令</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-number">4.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -1087,6 +645,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
 
   
 
