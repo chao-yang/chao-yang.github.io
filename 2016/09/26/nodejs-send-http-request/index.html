@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="nodejs iconv-lite," />
 
 
 
@@ -84,22 +84,16 @@
 
 
 
-<meta name="description" content="每次安装nodejs都要上网搜, 我决定还是记下来吧。
-在Ubuntu上安装服务器的系统是Ubuntu 14.04, 使用apt-get命令安装, 命令如下:
-12sudo apt-get install nodejssudo apt-get install npm">
+<meta name="description" content="问题的场景是, Nodejs发送jsonp请求并拿到返回的json数据。所以问题主要在Nodejs怎么发送http请求。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="安装Nodejs">
-<meta property="og:url" content="http://chao-yang.github.io/2016/09/21/node-install/index.html">
+<meta property="og:title" content="Nodejs发送http请求及乱码处理">
+<meta property="og:url" content="http://chao-yang.github.io/2016/09/26/nodejs-send-http-request/index.html">
 <meta property="og:site_name" content="Chaos">
-<meta property="og:description" content="每次安装nodejs都要上网搜, 我决定还是记下来吧。
-在Ubuntu上安装服务器的系统是Ubuntu 14.04, 使用apt-get命令安装, 命令如下:
-12sudo apt-get install nodejssudo apt-get install npm">
-<meta property="og:updated_time" content="2016-09-21T04:13:14.000Z">
+<meta property="og:description" content="问题的场景是, Nodejs发送jsonp请求并拿到返回的json数据。所以问题主要在Nodejs怎么发送http请求。">
+<meta property="og:updated_time" content="2016-09-26T06:17:09.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="安装Nodejs">
-<meta name="twitter:description" content="每次安装nodejs都要上网搜, 我决定还是记下来吧。
-在Ubuntu上安装服务器的系统是Ubuntu 14.04, 使用apt-get命令安装, 命令如下:
-12sudo apt-get install nodejssudo apt-get install npm">
+<meta name="twitter:title" content="Nodejs发送http请求及乱码处理">
+<meta name="twitter:description" content="问题的场景是, Nodejs发送jsonp请求并拿到返回的json数据。所以问题主要在Nodejs怎么发送http请求。">
 
 
 
@@ -117,7 +111,7 @@
   };
 </script>
 
-  <title> 安装Nodejs | Chaos </title>
+  <title> Nodejs发送http请求及乱码处理 | Chaos </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -247,7 +241,7 @@
             
             
               
-                安装Nodejs
+                Nodejs发送http请求及乱码处理
               
             
           </h1>
@@ -259,8 +253,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-21T09:54:30+08:00" content="2016-09-21">
-              2016-09-21
+            <time itemprop="dateCreated" datetime="2016-09-26T15:28:45+08:00" content="2016-09-26">
+              2016-09-26
             </time>
           </span>
 
@@ -289,8 +283,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/09/21/node-install/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/21/node-install/" itemprop="commentsCount"></span>
+                <a href="/2016/09/26/nodejs-send-http-request/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/26/nodejs-send-http-request/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -320,17 +314,18 @@
       
 
       
-        <p>每次安装nodejs都要上网搜, 我决定还是记下来吧。</p>
-<h2 id="在Ubuntu上安装"><a href="#在Ubuntu上安装" class="headerlink" title="在Ubuntu上安装"></a>在Ubuntu上安装</h2><p>服务器的系统是Ubuntu 14.04, 使用apt-get命令安装, 命令如下:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install nodejs</span><br><span class="line">sudo apt-get install npm</span><br></pre></td></tr></table></figure>
+        <p>问题的场景是, Nodejs发送jsonp请求并拿到返回的json数据。所以问题主要在Nodejs怎么发送http请求。</p>
 <a id="more"></a>
-<h3 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h3><ul>
-<li>Q: 运行node服务时, 报错提示: This failure might be due to the use of legacy binary “node”<br>  A: 如果在Ubuntu上用apt-get安装nodejs就会出现这个问题, 只需要建立一个symbolink 把 node 和 nodejs 连接在一起, 在执行 node 时实际是在执行 nodejs 就可以了  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ln -s /usr/bin/nodejs /usr/bin/node`</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
+<h2 id="Nodejs发送http请求"><a href="#Nodejs发送http请求" class="headerlink" title="Nodejs发送http请求"></a>Nodejs发送http请求</h2><p>Node.js的http.get的Callback中的第一个res参数是执行Readable Stream接口的。所以可以通过他的on方法来监听data和end事件，在data事件中需要把每次的片段（chunk参数）拼接起来，最后在end事件中使用完整的数据。（如果是字符串数据的话，请使用Buffer的toString方法转换成字符串）</p>
+<p>拼接数据也有多种方式，这里使用的是简单的JavaScript中的Array.push，然后再使用Node.js的Buffer.concat来把chunk数组合并成完整的Buffer。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">'http'</span>);</span><br><span class="line"><span class="keyword">var</span> util = <span class="built_in">require</span>(<span class="string">'util'</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'开始'</span>);</span><br><span class="line">http.get(<span class="string">"http://www.microsoft.com/en-us/default.aspx"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">res</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"HTTP StatusCode: "</span> + res.statusCode);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> buffers = [];</span><br><span class="line">    res.on(<span class="string">'data'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">chunk</span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(util.format(<span class="string">'收到chunk %d 字节'</span>, chunk.length));</span><br><span class="line">        buffers.push(chunk);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    res.on(<span class="string">'end'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">chunk</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> wholeData = Buffer.concat(buffers);</span><br><span class="line">        <span class="built_in">console</span>.log(util.format(<span class="string">'完毕，共 %d 字节'</span>, wholeData.length));</span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> dataStr = wholeData.toString(<span class="string">'utf8'</span>);</span><br><span class="line">        <span class="built_in">console</span>.log(dataStr.substr(<span class="number">0</span>, <span class="built_in">Math</span>.min(<span class="number">200</span>, dataStr.length)) + <span class="string">'...(省略)'</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;).on(<span class="string">'error'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"Got error: "</span> + e.message);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="解决乱码问题"><a href="#解决乱码问题" class="headerlink" title="解决乱码问题"></a>解决乱码问题</h2><p>上面的代码虽然可以很好的工作，但是却不能处理乱码问题。Linux环境下，我们可以通过 <code>iconv</code> 这个C++模块来处理Node.JS不支持的字符编码，如GBK，BIG5。iconv需要依赖native库，这样一来，在一些不支持native模块安装的虚拟主机和windows平台上，我们还是无法安心处理GBK编码。 老外写了一个通过纯Javascript转换编码的模块 iconv-lite。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">'http'</span>);</span><br><span class="line"><span class="keyword">var</span> BufferHelper = <span class="built_in">require</span>(<span class="string">'bufferhelper'</span>);</span><br><span class="line"><span class="keyword">var</span> iconv = <span class="built_in">require</span>(<span class="string">'iconv-lite'</span>);</span><br><span class="line"></span><br><span class="line">http.get(<span class="string">"http://www.microsoft.com/en-us/default.aspx"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">res</span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"HTTP StatusCode: "</span> + res.statusCode);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> bufferHelper = <span class="keyword">new</span> BufferHelper();</span><br><span class="line">        res.on(<span class="string">'data'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">chunk</span>) </span>&#123;</span><br><span class="line">            bufferHelper.concat(chunk);</span><br><span class="line">        &#125;);</span><br><span class="line">        res.on(<span class="string">'end'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">chunk</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">var</span> dataStr = iconv.decode(bufferHelper.toBuffer(), <span class="string">"GBK"</span>);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;).on(<span class="string">'error'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"Got error: "</span> + e.message);</span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure>
 <h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>&gt;</p>
 <ol>
-<li><a href="https://github.com/websockets/ws/issues/458" target="_blank" rel="external">https://github.com/websockets/ws/issues/458</a></li>
+<li><a href="https://www.mgenware.com/blog/?p=2687" target="_blank" rel="external">Node.js 0.12: 读取HTTP GET的回应</a></li>
+<li><a href="http://ju.outofmemory.cn/entry/22664" target="_blank" rel="external">node.js中文乱码的处理</a></li>
+<li><a href="http://haomou.net/2014/09/09/2014_nodejs_buffer/" target="_blank" rel="external">NodeJS的buffer使用总结</a></li>
 </ol>
 
       
@@ -351,22 +346,24 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/nodejs-iconv-lite/" rel="tag">#nodejs iconv-lite</a>
+          
+        </div>
+      
 
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/08/15/how-to-continue-linux-service-after-disconnecting-ssh/" rel="next" title="如何在关闭SSH后继续在后台运行程序">
-                <i class="fa fa-chevron-left"></i> 如何在关闭SSH后继续在后台运行程序
+              <a href="/2016/09/21/mongodb-install/" rel="next" title="安装MongoDB">
+                <i class="fa fa-chevron-left"></i> 安装MongoDB
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/09/21/mongodb-install/" rel="prev" title="安装MongoDB">
-                安装MongoDB <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -392,8 +389,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/09/21/node-install/"
-           data-title="安装Nodejs" data-url="http://chao-yang.github.io/2016/09/21/node-install/">
+      <div class="ds-thread" data-thread-key="2016/09/26/nodejs-send-http-request/"
+           data-title="Nodejs发送http请求及乱码处理" data-url="http://chao-yang.github.io/2016/09/26/nodejs-send-http-request/">
       </div>
     
   </div>
@@ -484,7 +481,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#在Ubuntu上安装"><span class="nav-number">1.</span> <span class="nav-text">在Ubuntu上安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#遇到的问题"><span class="nav-number">1.1.</span> <span class="nav-text">遇到的问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-number">2.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Nodejs发送http请求"><span class="nav-number">1.</span> <span class="nav-text">Nodejs发送http请求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决乱码问题"><span class="nav-number">2.</span> <span class="nav-text">解决乱码问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-number">3.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
             
           </div>
         </section>
